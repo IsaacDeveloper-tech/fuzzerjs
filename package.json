@@ -1,0 +1,22 @@
+{
+  "name": "fuzzerjs",
+  "version": "0.0.1",
+  "description": "A little tool in JavaScript to fuzzing websites",
+  "main": "main.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "nodemon src/main.ts"
+  },
+  "author": "Isaac Ramírez Garrido <isaacramirezgarrido1@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@types/yargs": "^17.0.33",
+    "csv": "^6.3.10",
+    "yargs": "^17.7.2"
+  }
+}
