@@ -2,5 +2,5 @@
     "watch": ["src"],
     "ext": "ts,json",
     "ignore": ["src/**/*.spec.ts"],
-    "exec": "ts-node src/main.ts -v -l http://google.com{} -k {} -d ./dictionaryPaths.txt"
+    "exec": "ts-node ./src/main.ts -v -l https://FUZZ.google.com/ -k FUZZ -d ./dictionarySubDomains.txt"
 }

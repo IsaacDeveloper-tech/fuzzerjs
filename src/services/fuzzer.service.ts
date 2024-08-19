@@ -12,16 +12,15 @@ export class Fuzzer
         private log:Log
     ){}
 
-    public async start():Promise<string[]>
+    public async start():Promise<void>
     {
-        const resultsOfFuzzing:string[] = [];
         let resultOfValidation:boolean = false;
         let urlModifiedToFuzzing:string = "";
         let counterOfFound:number = 0;
 
         for(const path of this.dictionaryPath)
         {
-            urlModifiedToFuzzing = this.urlToFuzzing.replace(this.keyToReplace, path); 
+            urlModifiedToFuzzing = this.urlToFuzzing.replace(this.keyToReplace, this.deleteUnwantedChar(path)); 
 
             this.log.write(`Analizing ${urlModifiedToFuzzing} ... \n`);
 
@@ -32,7 +31,6 @@ export class Fuzzer
             if (resultOfValidation)
             {
                 counterOfFound++;
-                resultsOfFuzzing.push(urlModifiedToFuzzing);
                 this.file.saveValue(`${urlModifiedToFuzzing}\n`);
                 this.log.write(`${urlModifiedToFuzzing} found succesfully \n`);
             }
@@ -44,13 +42,28 @@ export class Fuzzer
 
         this.log.write(`Paths found: ${counterOfFound}`);
         this.file.closeFile();
-
-        return resultsOfFuzzing;
     }
 
     private async validateConnectionWithUrl(urlToFuzzing:string):Promise<boolean>
     {
-        const response = await fetch(urlToFuzzing)
-        return response.status === 200;
+        const response: Response | null = await fetch(urlToFuzzing)
+        .catch((error) => {
+            return null;
+        });
+
+        return (response !== null && response.status === 200);
+    }
+
+    private deleteUnwantedChar(text:string):string
+    {
+        let newText:string = "";
+
+        if((text.includes("\n") || text.includes("\r")))
+        {
+            newText = text.replace("\n", "");
+            newText = newText.replace("\r", "");
+        }
+
+        return newText;
     }
 };
