@@ -1,8 +1,8 @@
 {
   "name": "fuzzerjs",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A little tool in JavaScript to fuzzing websites",
-  "main": "main.ts",
+  "main": "main.js",
   "scripts": {
     "build": "tsc",
     "dev": "nodemon",
@@ -17,7 +17,6 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "csv": "^6.3.10",
     "yargs": "^17.7.2"
   }
 }

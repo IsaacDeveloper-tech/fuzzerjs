@@ -1,4 +1,5 @@
 import { Log } from "./log.service";
+import { File } from "./file.service";
 
 export class Fuzzer
 {
@@ -7,6 +8,7 @@ export class Fuzzer
         private dictionaryPath:string[],
         private keyToReplace:string,
 
+        private file:File,
         private log:Log
     ){}
 
@@ -31,6 +33,7 @@ export class Fuzzer
             {
                 counterOfFound++;
                 resultsOfFuzzing.push(urlModifiedToFuzzing);
+                this.file.saveValue(`${urlModifiedToFuzzing}\n`);
                 this.log.write(`${urlModifiedToFuzzing} found succesfully \n`);
             }
             else
@@ -40,6 +43,7 @@ export class Fuzzer
         }
 
         this.log.write(`Paths found: ${counterOfFound}`);
+        this.file.closeFile();
 
         return resultsOfFuzzing;
     }

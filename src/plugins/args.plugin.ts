@@ -32,4 +32,10 @@ export const args = yargs(hideBin(process.argv))
     description: "Key for split dictionary, by default is \\n",
     default: "\n"
 })
+.option("output", {
+    alias: "o",
+    type: "string",
+    default: "Output.txt",
+    description: "Output file for result"
+})
 .parseSync();
