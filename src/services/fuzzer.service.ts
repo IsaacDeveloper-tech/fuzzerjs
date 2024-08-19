@@ -14,14 +14,14 @@ export class Fuzzer
     {
         const resultsOfFuzzing:string[] = [];
         let resultOfValidation:boolean = false;
-
         let urlModifiedToFuzzing:string = "";
+        let counterOfFound:number = 0;
 
         for(const path of this.dictionaryPath)
         {
             urlModifiedToFuzzing = this.urlToFuzzing.replace(this.keyToReplace, path); 
 
-            this.log.write(`${urlModifiedToFuzzing} `);
+            this.log.write(`Analizing ${urlModifiedToFuzzing} ... \n`);
 
             resultOfValidation = await this.validateConnectionWithUrl(
                 urlModifiedToFuzzing
@@ -29,14 +29,17 @@ export class Fuzzer
 
             if (resultOfValidation)
             {
+                counterOfFound++;
                 resultsOfFuzzing.push(urlModifiedToFuzzing);
-                this.log.write(`${urlModifiedToFuzzing} found succesfully`);
+                this.log.write(`${urlModifiedToFuzzing} found succesfully \n`);
             }
             else
             {
-                this.log.write(`${urlModifiedToFuzzing} NOT found`);
+                this.log.write(`${urlModifiedToFuzzing} NOT found \n`);
             }
         }
+
+        this.log.write(`Paths found: ${counterOfFound}`);
 
         return resultsOfFuzzing;
     }

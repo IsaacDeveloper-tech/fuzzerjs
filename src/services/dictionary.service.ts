@@ -1,5 +1,4 @@
-import { readFile } from "fs";
-import path from "path";
+import { readFileSync } from "fs";
 import { Log } from "./log.service";
 
 export class Dictionary
@@ -13,18 +12,14 @@ export class Dictionary
 
     public getDictionary():string[]
     {
+        let data:string;
         let allData:string[] = [];
 
         this.log.write(`Reading dictionary from: ${this.pathOfDictionary}`);
 
-        readFile(path.join(__dirname, this.pathOfDictionary), "utf-8", (error, data) => {
-            if(error !== null)
-                this.log.write(`Error reading this path: ${this.pathOfDictionary}`);
+        data = readFileSync(this.pathOfDictionary, "utf-8");
 
-            allData = data.split(this.keyForSplit);
-        });
-
-        this.log.write(`Readed dictionary from: ${this.pathOfDictionary}`);
+        allData = data.split(this.keyForSplit);
 
         return allData;
     }

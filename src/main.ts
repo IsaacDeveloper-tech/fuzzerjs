@@ -19,10 +19,23 @@ function main():void
  :         : :  :   : :: : :  : :: : :  : :: ::    :   : :  :::   : :::    :: : :
     `;
 
+    console.log(header);
 
-    const log:Log = new Log();
-    const dicctionary:Dictionary = new Dictionary();
-    const fuzzer:Fuzzer = new Fuzzer();
+    const log:Log = new Log(args.verbose);
+    const dictionary:Dictionary = new Dictionary(
+        args.dictionary,
+        args.keySplit,
+        log
+    );
+    
+    const fuzzer:Fuzzer = new Fuzzer(
+        args.link,
+        dictionary.getDictionary(),
+        args.keyFuzz,
+        log
+    );
+
+    fuzzer.start();
 }
 
 main();
