@@ -1,4 +1,7 @@
 import { args } from "./plugins/args.plugin";
+import { Fuzzer } from "./services/fuzzer.service";
+import { Log } from "./services/log.service";
+
 function main():void
 {
     const header:string = `
@@ -15,9 +18,8 @@ function main():void
  :         : :  :   : :: : :  : :: : :  : :: ::    :   : :  :::   : :::    :: : :
     `;
 
-
-    console.log(header);
-    console.log(args);
+    const log:Log = new Log();
+    const fuzzer:Fuzzer = new Fuzzer();
 }
 
 main();
