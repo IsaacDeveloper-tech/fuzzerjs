@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { args } from "./plugins/args.plugin";
 import { Fuzzer } from "./services/fuzzer.service";
 import { Log } from "./services/log.service";

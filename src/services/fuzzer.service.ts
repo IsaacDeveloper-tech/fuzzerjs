@@ -20,38 +20,47 @@ export class Fuzzer
 
         for(const path of this.dictionaryPath)
         {
-            urlModifiedToFuzzing = this.urlToFuzzing.replace(this.keyToReplace, this.deleteUnwantedChar(path)); 
-
+            urlModifiedToFuzzing = this.replaceKeyWord(path);
             this.log.write(`Analizing ${urlModifiedToFuzzing} ... \n`);
 
             resultOfValidation = await this.validateConnectionWithUrl(
                 urlModifiedToFuzzing
             );
 
-            if (resultOfValidation)
-            {
-                counterOfFound++;
-                this.file.saveValue(`${urlModifiedToFuzzing}\n`);
-                this.log.write(`${urlModifiedToFuzzing} found succesfully \n`);
-            }
-            else
-            {
-                this.log.write(`${urlModifiedToFuzzing} NOT found \n`);
-            }
+            if(resultOfValidation) counterOfFound++;
         }
 
         this.log.write(`Paths found: ${counterOfFound}`);
         this.file.closeFile();
     }
 
+    private replaceKeyWord(valueToReplaceKey:string):string
+    {
+        return this.urlToFuzzing.replace(this.keyToReplace, this.deleteUnwantedChar(valueToReplaceKey)); 
+    }
+
     private async validateConnectionWithUrl(urlToFuzzing:string):Promise<boolean>
     {
+        let resultOfValidation:boolean = false;
+
         const response: Response | null = await fetch(urlToFuzzing)
         .catch((error) => {
             return null;
         });
 
-        return (response !== null && response.status === 200);
+        resultOfValidation = (response !== null && response.status === 200);
+
+        if (resultOfValidation)
+        {
+            this.file.saveValue(`${urlToFuzzing}\n`);
+            this.log.write(`${urlToFuzzing} found succesfully \n`);
+        }
+        else
+        {
+            this.log.write(`${urlToFuzzing} NOT found \n`);
+        }
+
+        return resultOfValidation;
     }
 
     private deleteUnwantedChar(text:string):string

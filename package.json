@@ -6,13 +6,33 @@
   "scripts": {
     "build": "tsc",
     "dev": "nodemon",
-    "start": "npm run build && node ./dist/main.js"
+    "start": "npm run build && node ./dist/main.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
+  "bin": {
+    "fuzzerjs": "./dist/main.js"
+  },
+  "type": "commonjs",
   "author": "Isaac Ramírez Garrido <isaacramirezgarrido1@gmail.com>",
   "license": "MIT",
+  "keywords": [
+    "fuzzing",
+    "web",
+    "hacking",
+    "tool",
+    "CLI"
+  ],
+  "repository": {
+    "url": "https://github.com/IsaacDeveloper-tech/fuzzerjs.git"
+  },
   "devDependencies": {
+    "@types/jest": "^29.5.12",
     "@types/yargs": "^17.0.33",
+    "jest": "^29.7.0",
     "nodemon": "^3.1.4",
+    "ts-jest": "^29.2.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   },
