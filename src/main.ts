@@ -4,9 +4,14 @@ import { Fuzzer } from "./services/fuzzer.service";
 import { Log } from "./services/log.service";
 import { Dictionary } from "./services/dictionary.service";
 import { File } from "./services/file.service";
+import { Analizer } from "./services/analizer.service"; 
 
 function main():void
 {
+    const analizer:Analizer = new Analizer("https://www.suzuki.com");
+    analizer.getUrls()
+    .then(result => console.log(result));
+    /*
     const header:string = `
                                                                                          
 @@@@@@@@  @@@  @@@  @@@@@@@@  @@@@@@@@  @@@@@@@@  @@@@@@@             @@@   @@@@@@   
@@ -40,7 +45,7 @@ function main():void
         log
     );
 
-    fuzzer.start();
+    fuzzer.start();*/
 }
 
 main();
